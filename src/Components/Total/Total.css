@@ -1,0 +1,28 @@
+.total {
+    background: #16212c;
+    color: #82858b;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    padding: 10px;
+}
+
+label {
+    text-transform: uppercase;
+}
+
+label > span {
+    font-weight: bold;
+    color: white;
+}
+
+.amounts {
+    font-weight: bold;
+    color: #2979b6;
+}
+
+.amounts  > span {
+    margin-left: 10px;
+    color: rebeccapurple;
+    font-size: 18pt;
+}

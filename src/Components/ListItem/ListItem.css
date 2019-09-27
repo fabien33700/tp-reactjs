@@ -1,0 +1,33 @@
+.row {
+    display: table-row;
+    height: 50px;
+    border-bottom: 1px solid #2979b6;
+}
+
+.row:nth-child(2n) {
+    background: #e0eef8;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px;
+}
+
+.title {
+    color: #2979b6;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: left;
+}
+
+.paid-by {
+    color: #333;
+    text-align: center;
+    font-style: italic;
+}
+
+.amount {
+    color: #2979b6;
+    text-align: right;
+}

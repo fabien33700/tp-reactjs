@@ -1,0 +1,15 @@
+.add-panel {
+    background: #ccc;
+    display: flex;
+    flex-direction: row;
+    padding: 5px 10px;
+    
+}
+
+form {
+    margin: 0 auto;
+}
+
+input::placeholder, option[selected] {
+    font-style: italic;
+}

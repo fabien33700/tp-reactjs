@@ -1,0 +1,11 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.expand {
+  flex: 1 1 auto;
+  overflow: auto;
+}
