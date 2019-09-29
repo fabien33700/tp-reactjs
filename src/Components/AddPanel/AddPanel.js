@@ -1,10 +1,11 @@
 import React from 'react'
 import { InputGroup, FormControl, Button, Form, Col } from 'react-bootstrap'
 import { TiPlus } from 'react-icons/ti'
+import { connect } from 'react-redux'
+import { addCost } from '../../Redux/actions'
 import './AddPanel.css'
-import { CostContext } from '../../context'
 
-export default class AddPanel extends React.Component {
+export class AddPanel extends React.Component {
 
     constructor(props) {
         super(props)
@@ -33,48 +34,62 @@ export default class AddPanel extends React.Component {
     }
 
     render() {
-        return <CostContext.Consumer>
-            {({ users, addCost }) => (
-                <div className="add-panel">
-                    <Form >
-                        <Form.Row>
-                            <Col>
-                                <InputGroup size="sm">
-                                    <FormControl placeholder="What ?" onChange={this.handleTitleChange} />
-                                </InputGroup>
-                            </Col>
-                            <Col>
-                                <InputGroup size="sm">
-                                    <Form.Control
-                                        as="select"
-                                        defaultValue=""
-                                        onChange={this.handlePayerSelect}>
-                                        <option value="" disabled>Who ?</option> {
-                                            users.map((user, i) => {
-                                                return <option key={i} value={user}>{user}</option>
-                                            })
-                                        }
-                                    </Form.Control>
-                                </InputGroup>
-                            </Col>
-                            <Col>
-                                <InputGroup size="sm">
-                                    <FormControl type="number"
-                                        value={this.state.amount}
-                                        onChange={this.handleAmountChange} />
-                                    <InputGroup.Append>
-                                        <Button variant="primary"
-                                            onClick={() => addCost(this.state)}
-                                            disabled={!this.isAddEnabled()}>
-                                            <TiPlus />
-                                        </Button>
-                                    </InputGroup.Append>
-                                </InputGroup>
-                            </Col>
-                        </Form.Row>
-                    </Form>
-                </div>
-            )}
-        </CostContext.Consumer>
+        const { users, handleAddCost } = this.props
+        return (
+            <div className="add-panel">
+                <Form >
+                    <Form.Row>
+                        <Col>
+                            <InputGroup size="sm">
+                                <FormControl placeholder="What ?" onChange={this.handleTitleChange} />
+                            </InputGroup>
+                        </Col>
+                        <Col>
+                            <InputGroup size="sm">
+                                <Form.Control
+                                    as="select"
+                                    defaultValue=""
+                                    onChange={this.handlePayerSelect}>
+                                    <option value="" disabled>Who ?</option> {
+                                        users.map((user, i) => {
+                                            return <option key={i} value={user}>{user}</option>
+                                        })
+                                    }
+                                </Form.Control>
+                            </InputGroup>
+                        </Col>
+                        <Col>
+                            <InputGroup size="sm">
+                                <FormControl type="number"
+                                    value={this.state.amount}
+                                    onChange={this.handleAmountChange} />
+                                <InputGroup.Append>
+                                    <Button variant="primary"
+                                        onClick={() => handleAddCost(this.state)}
+                                        disabled={!this.isAddEnabled()}>
+                                        <TiPlus />
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Col>
+                    </Form.Row>
+                </Form>
+            </div>
+        )
     }
 }
+
+const mapStateToProps = state => ({
+    users: state.users
+})
+
+const mapDispatchToProps = dispatch => {
+    return {
+        handleAddCost: cost => {
+            const amount = (cost && parseFloat(cost.amount)) || 0
+            dispatch(addCost(cost.paidBy, cost.title, amount))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPanel);

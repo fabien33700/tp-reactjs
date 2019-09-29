@@ -1,10 +1,10 @@
-.row {
+.list-row {
     display: table-row;
     height: 50px;
     border-bottom: 1px solid #2979b6;
 }
 
-.row:nth-child(2n) {
+.list-row:nth-child(2n) {
     background: #e0eef8;
 }
 

@@ -1,25 +1,37 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { ListItem } from '../ListItem/ListItem'
 import './List.css'
-import { CostContext } from '../../context';
 
 export class List extends React.Component {
+    getFilteredCosts = () => {
+        return this.props.costs
+            .filter(cost => {
+                const payer = this.props.payer
+                return !payer || cost.paidBy === payer
+            })
+    }
     render() {
         return (
-            <CostContext.Consumer>
-                {({ getFilteredCosts }) => {
-                    const costs = getFilteredCosts()
-                    return (
+            // <CostContext.Consumer>
+                // {({ getFilteredCosts }) => {
+                    // const costs = getFilteredCosts()
+                    // return (
                         <div className="table">
-                            {costs.map((item, i) =>
+                            {this.getFilteredCosts().map((item, i) =>
                                 <ListItem item={item} key={i} />
                             )}
                         </div>
-                    )
-                }}
-            </CostContext.Consumer>
+                    // )
+                // }}
+            
         )
     }
 }
 
-export default List
+const mapStateToProps = state => ({
+    costs: state.costs,
+    payer: state.payer
+})
+
+export default connect(mapStateToProps)(List);

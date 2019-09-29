@@ -1,33 +1,43 @@
 import React from 'react'
 import { InputGroup, Form } from 'react-bootstrap'
-import { CostContext } from '../../context'
+import { connect } from 'react-redux'
 import './Header.css'
+import { filterByPayer } from '../../Redux/actions'
 
 export class Header extends React.Component {
 
     render() {
+        const { title, handleFilterByPayer } = this.props
         return (
-            <CostContext.Consumer>
-                {({ title, users, setFilter }) =>
-                    <div className="header">
-                        <h1>{title}</h1>
-                        <InputGroup size="sm">
-                            <Form.Control as="select" defaultValue=""
-                                onChange={e => setFilter(e.target.value)}>
-                                <option value="">Tous</option>
-                                {
-                                    users.map((user, i) => {
-                                        return <option key={i} value={user}>{user}</option>
-                                    })
-                                }
-                            </Form.Control>
-                        </InputGroup>
-
-                    </div>
-                }
-            </CostContext.Consumer>
+            <div className="header">
+                <h2>{title}</h2>
+                <InputGroup size="sm">
+                    <Form.Control as="select" defaultValue=""
+                        onChange={e => handleFilterByPayer(e.target.value)}>
+                        <option value="">Tous</option>
+                        {
+                            this.props.users.map((user, i) => {
+                                return <option key={i} value={user}>{user}</option>
+                            })
+                        }
+                    </Form.Control>
+                </InputGroup>
+            </div>
         )
     }
 }
 
-export default Header
+const mapStateToProps = state => ({
+    users: state.users,
+    title: state.title
+})
+
+const mapDispatchToProps = dispatch => {
+    return {
+        handleFilterByPayer: payer => {
+            dispatch(filterByPayer(payer))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

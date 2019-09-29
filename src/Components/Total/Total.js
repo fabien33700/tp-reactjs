@@ -1,6 +1,6 @@
 import React from 'react'
 import './Total.css'
-import { CostContext } from '../../context'
+import { connect } from 'react-redux'
 
 export class Total extends React.Component {
     sum = (a, b) => parseFloat(a) + parseFloat(b)
@@ -9,22 +9,32 @@ export class Total extends React.Component {
         .map(cost => cost.amount)
         .reduce(this.sum)
 
+    getFilteredCosts = () => {
+        return this.props.costs
+            .filter(cost => {
+                const payer = this.props.payer
+                return !payer || cost.paidBy === payer
+            })
+    }
+
     render() {
-        return <CostContext.Consumer>
-                {({costs, getFilteredCosts, payerFilter}) => {
-                    const filteredCosts = getFilteredCosts() 
-                    return (
-                        <div className="total">
-                            <label>Total expenses : <span>{filteredCosts.length}</span></label>
-                            <div className="amounts">
-                                { payerFilter && this.sumAmount(filteredCosts) + '€' }
-                                <span>{this.sumAmount(costs)} €</span>
-                            </div>
-                        </div>
-                    )
-                }}
-            </CostContext.Consumer>
+        const filteredCosts = this.getFilteredCosts()
+        const { costs, payer } = this.props
+        return (
+            <div className="total">
+                <label>Total expenses : <span>{filteredCosts.length}</span></label>
+                <div className="amounts">
+                    {payer && this.sumAmount(filteredCosts) + '€'}
+                    <span>{this.sumAmount(costs)} €</span>
+                </div>
+            </div>
+        )
     }
 }
 
-export default Total
+const mapStateToProps = state => ({
+    costs: state.costs,
+    payer: state.payer
+})
+
+export default connect(mapStateToProps)(Total)
