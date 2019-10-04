@@ -5,9 +5,8 @@ import './Header.css'
 import { filterByPayer } from '../../Redux/actions'
 
 export class Header extends React.Component {
-
     render() {
-        const { title, handleFilterByPayer } = this.props
+        const { title, handleFilterByPayer, users } = this.props
         return (
             <div className="header">
                 <h2>{title}</h2>
@@ -16,9 +15,9 @@ export class Header extends React.Component {
                         onChange={e => handleFilterByPayer(e.target.value)}>
                         <option value="">Tous</option>
                         {
-                            this.props.users.map((user, i) => {
-                                return <option key={i} value={user}>{user}</option>
-                            })
+                            users.map((user, i) => 
+                                <option key={i} value={user}>{user}</option>
+                            )
                         }
                     </Form.Control>
                 </InputGroup>
@@ -28,7 +27,7 @@ export class Header extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    users: state.users,
+    users: state.users.value,
     title: state.title
 })
 

@@ -10,6 +10,12 @@ import './index.css'
 
 const store = configureStore()
 
+store.updateStore = () => {
+    for (let handler of store.asyncHandlers) {
+        store.dispatch(handler.dispatcher)
+    }
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

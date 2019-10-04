@@ -8,4 +8,4 @@ const costs = [
     {   paidBy: 'Kévin', title: 'McDo', amount: 17.5    }
 ]
 
-export { users, costs }
+module.exports = { users, costs }

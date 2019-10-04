@@ -14,7 +14,10 @@
     "react-scripts": "3.1.2",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-promise-middleware": "^6.1.1",
+    "redux-thunk": "^2.3.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,5 +39,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "1. First TP : branch `FirstTPVersion` 2. Advanced : branch `AdvancedTPVersion`",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "proxy": "http://localhost:4000"
 }

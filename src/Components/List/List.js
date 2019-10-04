@@ -13,24 +13,17 @@ export class List extends React.Component {
     }
     render() {
         return (
-            // <CostContext.Consumer>
-                // {({ getFilteredCosts }) => {
-                    // const costs = getFilteredCosts()
-                    // return (
-                        <div className="table">
-                            {this.getFilteredCosts().map((item, i) =>
-                                <ListItem item={item} key={i} />
-                            )}
-                        </div>
-                    // )
-                // }}
-            
+            <div className="table">
+                {this.getFilteredCosts().map((item, i) =>
+                    <ListItem item={item} key={i} />
+                )}
+            </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    costs: state.costs,
+    costs: state.costs.value,
     payer: state.payer
 })
 

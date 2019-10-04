@@ -7,7 +7,7 @@ export class Total extends React.Component {
 
     sumAmount = (costs) => costs
         .map(cost => cost.amount)
-        .reduce(this.sum)
+        .reduce(this.sum, 0)
 
     getFilteredCosts = () => {
         return this.props.costs
@@ -33,7 +33,7 @@ export class Total extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    costs: state.costs,
+    costs: state.costs.value,
     payer: state.payer
 })
 

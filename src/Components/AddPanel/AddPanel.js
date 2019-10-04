@@ -2,7 +2,6 @@ import React from 'react'
 import { InputGroup, FormControl, Button, Form, Col } from 'react-bootstrap'
 import { TiPlus } from 'react-icons/ti'
 import { connect } from 'react-redux'
-import { addCost } from '../../Redux/actions'
 import './AddPanel.css'
 
 export class AddPanel extends React.Component {
@@ -80,14 +79,13 @@ export class AddPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.users.value
 })
 
 const mapDispatchToProps = dispatch => {
     return {
         handleAddCost: cost => {
-            const amount = (cost && parseFloat(cost.amount)) || 0
-            dispatch(addCost(cost.paidBy, cost.title, amount))
+            // TODO
         }
     }
 }
